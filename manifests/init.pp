@@ -24,16 +24,34 @@
 # == Requires:
 #   - Module['Archive']
 #
-class mule ( $parentdir          = '/usr/local',
-             $version            = '3.3.0',
-             $version_type       = 'standalone',
-             $mirror             = 'http://dist.codehaus.org/mule/distributions',
-             $java_home          = '/usr/java/latest',
-             $user               = 'root',
-             $group              = 'root',
-             ) {
-  
-  $basedir     = "${parentdir}/mule"
+
+class mule ( $parentdir = '/usr/local',
+$version            = '3.4.0',
+$version_type       = 'standalone',
+$mirror             = 'http://dist.codehaus.org/mule/distributions',
+$java_home          = '/usr/lib/jvm/default-java',
+$user               = 'mule',
+$group              = 'mule',
+$uid                = '998',
+$gid                = '998')
+{
+  $basedir     = "${parentdir}/mule")
+
+  user { $user:
+    ensure           => 'present',
+    gid              => $gid,
+    home             => '/home/mule',
+    password         => '!',
+    password_max_age => '-1',
+    password_min_age => '-1',
+    shell            => '/bin/bash',
+    uid              => $uid,
+  }
+
+  group { $group:
+    ensure => 'present',
+    gid    => $gid,
+  }
 
   archive::download { "mule-${version_type}-${version}.tar.gz":
     ensure        => present,

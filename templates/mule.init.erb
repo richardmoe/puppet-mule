@@ -9,10 +9,10 @@
 # Source function library.
 . /etc/init.d/functions
 
-MULE_USER="<%= user %>"
-MULE_HOME="<%= basedir %>"
-JAVA_HOME="<%= java_home %>"
-PID_FILE="<%= basedir %>/bin/mule.pid"
+MULE_USER="<%= @user %>"
+MULE_HOME="<%= @basedir %>"
+JAVA_HOME="<%= @java_home %>"
+PID_FILE="<%=  @basedir %>/bin/mule.pid"
 
 PROG="mule"
 
